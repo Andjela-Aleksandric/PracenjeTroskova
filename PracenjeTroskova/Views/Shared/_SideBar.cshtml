@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<Object> stavkeMenija = new List<Object>();
+
+    stavkeMenija.Add(new
+    {
+        text = "Opšte",
+        separator = true,
+    });
+    stavkeMenija.Add(new
+    {
+        text = "Kontrolna tabla",
+        url = "/",
+        iconCss = "fa-solid fa-box",
+    });
+    stavkeMenija.Add(new
+    {
+        text = "Kategorije",
+        url = "/Kategorije",
+        iconCss = "fa-solid fa-folder-closed",
+    });
+    stavkeMenija.Add(new
+    {
+        text = "Transakcije",
+        iconCss = "fa-solid fa-arrow-right-arrow-left",
+        url = "/Transakcije"
+    });
+
+    stavkeMenija.Add(new
+    {
+        text = "Dodatno",
+        separator = true,
+    });
+    stavkeMenija.Add(new
+    {
+        text = "Izveštaji",
+        iconCss = "fa-solid fa-chart-simple",
+        url = "#"
+    }); stavkeMenija.Add(new
+    {
+        text = "Podešavanja",
+        iconCss = "fa-solid fa-gear",
+        url = "#"
+    });
+}
+
+
+<ejs-sidebar id="sidebar" width="290px" enableDock dockSize="100px"
+             target=".dock-target" enableGestures="false">
+    <e-content-template>
+
+        <div class="profile-wrapper">
+            <img class="profile-pic" src="~/logo.png" />
+            <div class="titles d-flex flex-column ps-3">
+                <h6 class="mb-0">Praćenje troškova</h6>
+                <span class="text-muted">Anđela</span>
+            </div>
+        </div>
+
+        <ejs-menu id="menu"
+                  items="stavkeMenija"
+                  orientation="Vertical"
+                  hamburgerMode></ejs-menu>
+    </e-content-template>
+</ejs-sidebar>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        dockBar = document.getElementById('sidebar').ej2_instances[0];
+        document.getElementById('sidebar-toggler').onclick = function () {
+            dockBar.toggle();
+        };
+    });
+
+</script>

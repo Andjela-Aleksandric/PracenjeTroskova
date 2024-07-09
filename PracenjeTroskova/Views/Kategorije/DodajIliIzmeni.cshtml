@@ -1,0 +1,43 @@
+﻿@model PracenjeTroskova.Models.Kategorija
+
+@{
+    ViewData["PageTitle"] = Model.KategorijaID == 0? "Dodajte novu kategoriju troškova" : "Izmenite kategoriju troškova";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5" style="background-color: #212b36">
+            <form asp-action="DodajIliIzmeni">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="KategorijaID" value="@Model.KategorijaID" /> @* polje za primarni kljuc *@
+                <div class="mb-3">
+                    <div class='e-btn-group custom-rbt-group'>
+                        <input type="radio" id="radioleft" name="Tip" value="Trošak" checked="@(Model.Tip == "Trošak")" />
+                        <label class="e-btn" for="radioleft">Trošak</label>
+                        <input type="radio" id="radiomiddle" name="Tip" value="Prihod" checked="@(Model.Tip == "Prihod") " />
+                        <label class="e-btn" for="radiomiddle">Prihod</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="naziv" placeholder="Naziv" ejs-for="Naziv" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Naziv" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="ikonica" placeholder="Ikonica" ejs-for="Ikonica" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Ikonica" class="text-danger fs-6"></span>
+                </div>
+                <ejs-button id="submit" type="submit" content="Potvrdi" cssClass="e-success"></ejs-button>
+            </form>
+        </div>    
+    </div>
+    <div class="col-md-5">
+        <div class="widget h-100 d-flex justify-content-center align-items-center">           
+            <i class="fa-solid fa-list fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@

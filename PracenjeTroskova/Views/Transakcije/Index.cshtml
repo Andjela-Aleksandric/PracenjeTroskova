@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PracenjeTroskova.Models.Transakcija>
+
+@{
+    ViewData["PageTitle"] = "Transakcije";
+    ViewData["PageActionText"] = " + Nova Transakcija";
+    ViewData["PageActionUrl"] = "/Transakcije/DodajIliIzmeni";
+}
+
+<div class="row">
+    <div class="col-md-10">
+        <ejs-grid id="transakcije" dataSource="@Model" gridLines="None" allowSorting="true" allowPaging="true">
+            <e-grid-pagesettings pageSize="8">
+
+            </e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Kategorija" field="NazivKategorijeSaIkonicom" width="220px"></e-grid-column>
+                <e-grid-column headerText="Datum" field="Datum" width="150px" type="date" format="MMM-dd-yyyy" 
+                textAlign="Left"></e-grid-column>
+                <e-grid-column headerText="Iznos" field="formatiraniIznos" width="90px" textAlign="Right"></e-grid-column>
+                <e-grid-column headerText="Akcije" template="#kolonaAkcijeTemplate" width="90px"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+    <div class="col-md-2">
+        <div class="widget h-100 d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-money-bill-transfer fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+<script id="kolonaAkcijeTemplate" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm no-a-decoration" href="/Transakcije/DodajIliIzmeni/${TransakcijaID}">
+            <i class="fa-solid fa-pen fa-lg"> </i>
+        </a>
+        <form action="/Transakcije/Delete/${TransakcijaID}" method="post">
+    @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-sm btn-link no-a-decoration"
+            onclick="return confirm(&quot;Da li ste sigurni da želite da izbrišete ovo polje?&quot;)" >
+                <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
+            </button>
+        </form>
+    </div>
+</script>

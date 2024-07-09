@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PracenjeTroskova.Models.Kategorija>
+
+@{
+    ViewData["PageTitle"] = "Kategorije troškova";
+    ViewData["PageActionText"] = " + Nova Kategorija";
+    ViewData["PageActionUrl"] = "/Kategorije/DodajIliIzmeni";
+}
+
+
+<div class="row">
+    <div class="col-md-10">
+        <ejs-grid id="kategorije" dataSource="@Model" gridLines="None" allowSorting="true" allowPaging="true">
+            <e-grid-pagesettings pageSize="8">
+
+            </e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Kategorija" field="NazivSaIkonicom" width="220px"></e-grid-column>
+                <e-grid-column headerText="Tip" template="#kolonaTipTemplate" width="150px"></e-grid-column>
+                <e-grid-column headerText="Akcije" template="#kolonaAkcijeTemplate" width="100px"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+    <div class="col-md-2">
+        <div class="widget h-100 d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-list fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+
+<script id="kolonaTipTemplate" type="text/x-template">
+    ${if(Tip == "Prihod")}
+        <span class="badge bg-success">${Tip}</span>
+    ${else}
+        <span class="badge bg-danger">${Tip}</span>
+    ${/if}
+</script>
+
+<script id="kolonaAkcijeTemplate" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm no-a-decoration" href="/Kategorije/DodajIliIzmeni/${KategorijaID}">
+            <i class="fa-solid fa-pen fa-lg"> </i>
+        </a>
+        <form action="/Kategorije/Delete/${KategorijaID}" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-sm btn-link no-a-decoration" 
+            onclick="return confirm(&quot;Da li ste sigurni da želite da izbrišete ovo polje?&quot;)" >
+                <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
+            </button>
+        </form>
+    </div>
+</script>
